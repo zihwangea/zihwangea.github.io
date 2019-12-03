@@ -1,0 +1,74 @@
+<!-- Display the countdown timer in an element -->
+<style>
+  .container {
+    height: 300px;
+    position: relative;
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<div class="container">
+  <div class="vertical-center">
+    <h1 id="count-description" style="text-align: center; color: white; font-family: arial; font-size: 50px;"></h1>
+    <h1 id="count-clock"" style="text-align: center; color: white; font-family: arial; font-size: 80px;"></h1>
+  </div>
+</div>
+
+<script>
+var alphaDate = new Date("Dec 20, 2019 23:59:59").getTime();
+var devBetaDate = new Date("Apr 7, 2020 23:59:59").getTime();
+var qaBetaDate = new Date("Apr 28, 2020 23:59:59").getTime();
+
+var descriptionStart = "Days Untill ";
+var alphaText = "Alpha";
+var devBetaText = "Dev Beta";
+var qaBetaText = "QA Beta";
+
+function setCountdown() {
+  var now = new Date().getTime();
+
+  var distance = alphaDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("count-description").innerHTML = descriptionStart + alphaText + ":";
+  document.getElementById("count-clock").innerHTML = days;
+
+  console.log("try");
+
+  if (distance < 0) {
+    distance = devBetaDate - now;
+    days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("count-description").innerHTML = descriptionStart + devBetaText + ":";
+    document.getElementById("count-clock").innerHTML = days;
+  }
+
+  if (distance < 0) {
+    distance = qaBetaDate - now;
+    days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("count-description").innerHTML = descriptionStart + qaBetaText + ":";
+    document.getElementById("count-clock").innerHTML = days;
+  }
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("count-clock").innerHTML = "EXPIRED";
+  }
+}
+
+// Initialization
+setCountdown();
+// Update the count down every hour
+var x = setInterval(setCountdown, 3600000);
+</script>
