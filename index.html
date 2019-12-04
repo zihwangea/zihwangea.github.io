@@ -62,12 +62,9 @@ function updateCountdown() {
   let distance = 0;
 
   for (let event in events) {
-    console.log(events[event]);
-    console.log(events.event);
-    console.log(events[event].date);
-    distance = events[event][date] - now;
+    distance = events[event].date - now;
     if (distance > 0) {
-      setCountdown(distance, events[event][name]);
+      setCountdown(distance, events[event].name);
     }
   }
 
