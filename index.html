@@ -28,23 +28,23 @@ var descriptionStart = "Days Untill ";
 const events = {
   alpha: {
     name: "Alpha",
-    date: new Date("Dec 20, 2019 23:59:59").getTime()
+    date: new Date("Dec 20, 2019 00:00:00").getTime()
   },
   devBeta: {
     name: "Dev Beta",
-    date: new Date("Apr 7, 2020 23:59:59").getTime()
+    date: new Date("Apr 7, 2020 00:00:00").getTime()
   },
   qaBeta: {
     name: "QA Beta",
-    date: new Date("Apr 28, 2020 23:59:59").getTime()
+    date: new Date("Apr 28, 2020 00:00:00").getTime()
   },
   final: {
     name: "Final",
-    date: new Date("Dec 20, 2019 23:59:59").getTime()
+    date: new Date("Dec 20, 2019 00:00:00").getTime()
   },
   launch: {
     name: "Launch",
-    date: new Date("Dec 20, 2019 23:59:59").getTime()
+    date: new Date("Dec 20, 2019 00:00:00").getTime()
   }
 };
 
@@ -58,7 +58,7 @@ function setCountdown(distance, description) {
 }
 
 function updateCountdown() {
-  let now = new Date("Dec 20, 2019 20:59:59").getTime()
+  let now = new Date().getTime();
   let distance = 0;
 
   for (let event in events) {
