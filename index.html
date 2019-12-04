@@ -65,6 +65,7 @@ function updateCountdown() {
     distance = events[event].date - now;
     if (distance > 0) {
       setCountdown(distance, events[event].name);
+      break;
     }
   }
 
