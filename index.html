@@ -24,52 +24,59 @@
 </div>
 
 <script>
-var alphaDate = new Date("Dec 20, 2019 23:59:59").getTime();
-var devBetaDate = new Date("Apr 7, 2020 23:59:59").getTime();
-var qaBetaDate = new Date("Apr 28, 2020 23:59:59").getTime();
-
 var descriptionStart = "Days Untill ";
-var alphaText = "Alpha";
-var devBetaText = "Dev Beta";
-var qaBetaText = "QA Beta";
+const events = {
+  alpha: {
+    name: "Alpha",
+    date: new Date("Dec 20, 2019 23:59:59").getTime()
+  },
+  devBeta: {
+    name: "Dev Beta",
+    date: new Date("Apr 7, 2020 23:59:59").getTime()
+  },
+  qaBeta: {
+    name: "QA Beta",
+    date: new Date("Apr 28, 2020 23:59:59").getTime()
+  },
+  final: {
+    name: "Final",
+    date: new Date("Dec 20, 2019 23:59:59").getTime()
+  },
+  launch: {
+    name: "Launch",
+    date: new Date("Dec 20, 2019 23:59:59").getTime()
+  }
+};
 
-function setCountdown() {
-  var now = new Date().getTime();
-
-  var distance = alphaDate - now;
-
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("count-description").innerHTML = descriptionStart + alphaText + ":";
+function setCountdown(distance, description) {
+  let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  //   let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  //   let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  //   let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("count-description").innerHTML = descriptionStart + description + ":";
   document.getElementById("count-clock").innerHTML = days;
+}
 
-  console.log("try");
+function updateCountdown() {
+  let now = new Date().getTime();
+  let distance = 0;
 
-  if (distance < 0) {
-    distance = devBetaDate - now;
-    days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("count-description").innerHTML = descriptionStart + devBetaText + ":";
-    document.getElementById("count-clock").innerHTML = days;
+  for (let event in events) {
+    distance = events[event][date] - now;
+    if (distance > 0) {
+      setCountdown(distance, events[event][name])
+    }
   }
 
   if (distance < 0) {
-    distance = qaBetaDate - now;
-    days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("count-description").innerHTML = descriptionStart + qaBetaText + ":";
-    document.getElementById("count-clock").innerHTML = days;
-  }
-
-  if (distance < 0) {
+    // All events are expired
     clearInterval(x);
     document.getElementById("count-clock").innerHTML = "EXPIRED";
   }
 }
 
 // Initialization
-setCountdown();
+updateCountdown();
 // Update the count down every hour
-var x = setInterval(setCountdown, 3600000);
+var x = setInterval(updateCountdown, 1000 * 60 * 60);
 </script>
